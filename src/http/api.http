@@ -1,0 +1,63 @@
+@BASE_URL = http://localhost:8899
+
+###
+GET {{BASE_URL}}/check
+
+### register
+POST {{BASE_URL}}/auth/register
+Content-Type: application/json
+
+{
+    "name" : "Boss2",
+    "email" : "boss2@ggg.com",
+    "password" : "123456"
+}
+
+### login
+POST {{BASE_URL}}/auth/login
+Content-Type: application/json
+
+{
+    "email" : "boss2@ggg.com",
+    "password" : "123456"
+}
+
+### get me
+GET {{BASE_URL}}/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc0ODQ0OTgsImV4cCI6MTc4NzU3MDg5OH0.Bg5BDsva-3bvvGpJ_OIdoRvNnxoZuRLsIqFrUz1OYxw
+### ดูข้อมูลหินทั้งหมด
+GET {{BASE_URL}}/stones
+
+### ดูหินตาม Id
+GET {{BASE_URL}}/stones/3
+
+### หมวดหมู่หิน
+GET {{BASE_URL}}/category
+
+
+### อัปเดทวันเกิด
+PATCH {{BASE_URL}}/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc0ODQ0OTgsImV4cCI6MTc4NzU3MDg5OH0.Bg5BDsva-3bvvGpJ_OIdoRvNnxoZuRLsIqFrUz1OYxw
+
+{
+    "birthDate": "2001-12-10"
+}
+
+### match stone
+GET {{BASE_URL}}/birthmatch
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc0ODQ0OTgsImV4cCI6MTc4NzU3MDg5OH0.Bg5BDsva-3bvvGpJ_OIdoRvNnxoZuRLsIqFrUz1OYxw
+
+### เพิ่มหิน ID 1 เข้า Favorite
+POST {{BASE_URL}}/favorites/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc0ODQ0OTgsImV4cCI6MTc4NzU3MDg5OH0.Bg5BDsva-3bvvGpJ_OIdoRvNnxoZuRLsIqFrUz1OYxw
+
+
+### ดู Favorite ทั้งหมดของผู้ใช้
+GET {{BASE_URL}}/favorites
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc0ODQ0OTgsImV4cCI6MTc4NzU3MDg5OH0.Bg5BDsva-3bvvGpJ_OIdoRvNnxoZuRLsIqFrUz1OYxw
+
+
+### ลบหิน ID 1 ออกจาก Favorite
+DELETE {{BASE_URL}}/favorites/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwicm9sZSI6IlVTRVIiLCJpYXQiOjE3ODc0ODQ0OTgsImV4cCI6MTc4NzU3MDg5OH0.Bg5BDsva-3bvvGpJ_OIdoRvNnxoZuRLsIqFrUz1OYxw

@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  name      String
+  birthDate DateTime?
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  favorites Favorite[]
+}
+
+model Stone {
+  id          Int      @id @default(autoincrement())
+  nameTH      String
+  nameEN      String?
+  description String   @db.Text
+  color       String
+  benefit     String   @db.Text
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  favorites       Favorite[]
+  stoneCategories StoneCategory[]
+  stoneBirthDays  StoneBirthDay[]
+}
+
+model Category {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String? @db.Text
+
+  stoneCategories StoneCategory[]
+}
+
+model Favorite {
+  userId    Int
+  stoneId   Int
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stone Stone @relation(fields: [stoneId], references: [id], onDelete: Cascade)
+
+  @@id([userId, stoneId])
+}
+
+model StoneCategory {
+  stoneId    Int
+  categoryId Int
+
+  stone    Stone    @relation(fields: [stoneId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([stoneId, categoryId])
+}
+
+model StoneBirthDay {
+  stoneId  Int
+  dayOfWeek DayOfWeek
+
+  stone Stone @relation(fields: [stoneId], references: [id], onDelete: Cascade)
+
+  @@id([stoneId, dayOfWeek])
+}
