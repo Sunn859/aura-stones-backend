@@ -11,11 +11,14 @@ import favoriteRoute from "./routes/favorite.route.js";
 
 const app = express()
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://aura-stones-frontend.vercel.app",
+    "https://aura-stones-frontend-ntc1p1ku8-follow-up-board.vercel.app"
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 app.get("/check", (req,res) => {
